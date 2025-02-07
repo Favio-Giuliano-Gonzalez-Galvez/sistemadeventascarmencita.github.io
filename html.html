@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pasteles Carmencita</title>
+    <link rel="stylesheet" href="css.css">
+</head>
+<body>
+
+    <nav id="nav">
+        <h1 class="no-imprimir" id="texto_nav">Pasteles Carmencita</h1>
+        <img src="img/imagen_diseño.png" alt="" id="imagen_diseño" class="no-imprimir">
+        <img src="img/logo_color.png" class="no-imprimir" id="logo_color">
+    </nav>
+
+    <b><span class="no-imprimir" id="texto_nombre">Nombre: </span></b><span id="nombre_persona" class="no-imprimir"></span>
+    <br>
+    <input type="text" id="input_nombre_persona" onkeyup="nombres_gente()" class="no-imprimir inputs">
+
+    <h2 class="no-imprimir"> Total: Bs. <span id="total_valor">0</span></h2>
+    <span class="no-imprimir"><h3 id="texto_efectivo" class="no-imprimir">Efectivo: </h3></span><input type="number" id="input_efectivo_cliente" class="no-imprimir"><h2 id="total_cambio" class="no-imprimir">Cambio: <span>0</span></h2>
+    <hr>
+    <div id="lista_productos" class="no-imprimir"></div>
+    
+
+    <div id="contenedor_agregar_productos">
+        <label for="check_producto">
+            <img src="img/flecha_izquierda.png" class="flechas no-imprimir" id="flecha_izquierda">
+        </label>
+        <input type="checkbox" id="check_producto">       
+        <input type="text" id="nombre_agregar_producto" placeholder="Nombre del producto" class="no-imprimir inputs input_producto">
+        <input type="number" id="precio_agregar_producto"  class="no-imprimir inputs input_producto">
+        <button id="agregar_producto" class="no-imprimir input_producto botones">Agregar producto</button>
+        
+    </div>
+
+
+    <button id="imprimir_reporte" class="no-imprimir botones">Imprimir</button>
+
+
+    <div id="reporte" style="display:none;">
+        <h2 id="numero_ficha">0</h2>
+        <b><span>Nombre: </span></b><span id="nombre_persona_reporte"></span>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th>Precio</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody id="reporte_tabla"></tbody>
+        </table>
+        <h3>Total General: Bs. <span id="reporte_total"></span></h3>
+    </div>
+
+    <br><br><br><br>
+    <input type="checkbox" id="check_pedido_hecho" class="no-imprimir">
+    <h3 class="no-imprimir">Historial de Pedidos</h3>
+    <label for="check_pedido_hecho">
+    <img src="img/flecha_abajo.png" id="flecha_abajo" class="flechas no-imprimir" >
+    </label>
+
+    <div id="pedidos_hechos" class="no-imprimir">
+    </div>
+
+    <script src="js.js"></script>
+</body>
+</html>

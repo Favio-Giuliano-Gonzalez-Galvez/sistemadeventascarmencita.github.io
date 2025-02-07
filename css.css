@@ -1,0 +1,246 @@
+
+body{
+    background-color: rgb(226, 201, 153);
+    overflow-x: hidden;
+    user-select: none;
+}
+
+
+#nav{
+    position: relative;
+    height: 8vh;
+}
+
+#texto_nav{
+    margin: 30px;
+    transform: translate(45%);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-size: 30px;
+    background-color: rgb(187, 12, 12);
+    color:rgb(228, 143, 83);
+    padding: 10px;
+    border-radius: 10px;
+    width: 350px;
+    text-align: center;
+}
+
+#nav #imagen_diseño{
+    position: absolute;
+    width: 100%;
+    float: right;
+    transform: rotate(45deg);
+    top: -400%;
+    right: -40%;
+
+}
+
+#nav #logo_color{
+    position: absolute;
+    width: 35%;
+    right: 0%;
+    top: -150%;
+    z-index: 1;
+}
+
+
+#texto_nombre{
+    font-size: 20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#nombre_persona{
+    font-size: 20px;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+#texto_efectivo{
+    display: inline-block;
+    font-size: 20px;
+    
+}
+
+#input_efectivo_cliente{
+    position: static;
+    transform: translate(0, 0);
+}
+
+
+
+#contenedor_agregar_productos #flecha_izquierda{
+    position: relative;
+    transform: translate(0%, 65%);
+}
+
+.inputs{
+    border-radius: 6px;
+    width: 150px;
+    height: 25px;
+    border: 2px black solid;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+.flechas{
+    width: 35px;
+    background-color: rgb(161, 7, 7);
+    border-radius: 8px;
+    margin: 10px;
+}
+
+#check_producto{
+    display: none;
+}
+
+#check_producto:checked ~ .input_producto{
+    display: none;
+}
+
+
+#nombre_agregar_producto{
+    height: 27px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.botones{
+    border-radius: 6px;
+    border: black 2px solid;
+    background-color: brown;
+    color: white;
+    font-family:Arial, Helvetica, sans-serif;
+    height: 30px;
+    font-size: 13px;
+}
+
+#lista_productos{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+input[type="number"]{
+    width: 40px;
+    height: 35px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 20px;
+    position: absolute;
+    left: 50%;
+    transform: translate(0, -20%);
+}
+
+#precio_agregar_producto{
+    width: 35px;
+    height: 30px;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 20px;
+    position:static;
+    transform: translate(0, 6%);
+    margin: 4px;
+}
+
+input[type="number"]::-webkit-inner-spin-button, 
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+
+hr{
+    height: 2px;
+    background: black;
+    border: none;
+}
+
+
+#check_pedido_hecho{
+    display: none;
+}
+
+#check_pedido_hecho:checked ~ #pedidos_hechos{
+    display: none;
+}
+
+
+
+
+
+
+/* Estilos para la tabla del reporte */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+.no-imprimir {
+    margin-top: 20px;
+}
+
+
+@media print {
+    .no-imprimir {
+        display: none; /* Ocultar botones y otros elementos al imprimir */
+    }
+
+    body {
+        margin: 0;
+    }
+
+    #nav, .no-imprimir {
+        display: none;
+    }
+
+    #reporte {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+
+@media screen and (max-width: 1400px){
+
+    #imagen_diseño{
+        display: none;
+    }
+
+    #logo_color{
+        display: none;
+    }
+
+    #texto_nav{
+        position: relative;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+
+}
+
+@media screen and (max-width: 550px){
+    input[type="number"]{
+        left: 80%;
+    }
+
+    #texto_nav{
+        font-size: 25px;
+        width: 300px;
+    }
+}
+
+@media screen and (max-width: 400px){
+    #texto_nav{
+        font-size: 20px;
+        width: 230px;
+        transform: translate(-61%);
+    }
+}
