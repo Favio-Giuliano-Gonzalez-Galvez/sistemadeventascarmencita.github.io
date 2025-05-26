@@ -1,5 +1,5 @@
 let productos = [];
-let numeroFicha = 0;
+let numeroFicha = parseInt(localStorage.getItem("numeroFicha")) || 0;
 
 function agreg_productos() {
     let boton_adicionar_productos = document.getElementById("agregar_producto");
@@ -46,6 +46,7 @@ function creacion_producto(nombre, precio) {
     document.getElementById("lista_productos").appendChild(contenedor_producto);
 }
 
+
 function actualizar_total() {
     const total = productos.reduce((sum, p) => sum + p.precio * p.cantidad, 0);
     document.getElementById("total_valor").textContent = total.toFixed(2);
@@ -67,6 +68,7 @@ function preparar_reporte() {
 
     numeroFicha++;
     document.getElementById("numero_ficha").textContent = `# ${numeroFicha}`;
+    localStorage.setItem("numeroFicha", numeroFicha);
 
     const reporte_tabla = document.getElementById("reporte_tabla");
     reporte_tabla.innerHTML = "";
@@ -107,18 +109,63 @@ function preparar_reporte() {
     guardar_pedido(nombre_persona, total_general, efectivo, cambio, tablaHTML);
 }
 
+
+
+
 function guardar_pedido(nombre, total, efectivo, cambio, tablaHTML) {
+    const pedidos_hechos = document.getElementById("pedidos_hechos");
+
+    const fecha = new Date().toLocaleString();
+    const ficha = numeroFicha;
+
+    // Guardar en localStorage
+    let historial = JSON.parse(localStorage.getItem("historialPedidos")) || [];
+    historial.push({
+        fecha,
+        ficha,
+        nombre,
+        total,
+        efectivo,
+        cambio,
+        tablaHTML,
+        checkbox: false // Agregamos el estado del checkbox
+    });
+    localStorage.setItem("historialPedidos", JSON.stringify(historial));
+
+    // Renderizar visualmente el pedido (nuevo)
+    renderPedido(historial.length - 1, historial[historial.length - 1]);
+}
+
+
+function renderPedido(index, pedido) {
     const pedidos_hechos = document.getElementById("pedidos_hechos");
 
     const contenedor_pedido = document.createElement("div");
     contenedor_pedido.className = "reporte";
+    contenedor_pedido.style.position = "relative";
+
+    // Checkbox arriba a la derecha
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = pedido.checkbox;
+    checkbox.style.position = "absolute";
+    checkbox.style.top = "50px";
+    checkbox.style.right = "10px";
+    checkbox.style.transform = 'scale(2)'
+
+    checkbox.addEventListener("change", () => {
+        let historial = JSON.parse(localStorage.getItem("historialPedidos")) || [];
+        historial[index].checkbox = checkbox.checked;
+        localStorage.setItem("historialPedidos", JSON.stringify(historial));
+    });
+
     contenedor_pedido.innerHTML = `
-        <h4>Pedido generado el: ${new Date().toLocaleString()}</h4>
-        <b>Ficha N°:</b> ${numeroFicha}<br>
-        <b>Nombre: </b>${nombre}<br>
-        <b>Total General: Bs. ${total.toFixed(2)}</b><br>
-        <b>Efectivo: Bs. ${efectivo.toFixed(2)}</b><br>
-        <b>Cambio: Bs. ${cambio.toFixed(2)}</b><br>
+        <h4>Pedido generado el: ${pedido.fecha}</h4>
+        <b>Ficha N°:</b> ${pedido.ficha}<br>
+        <b>Nombre: </b>${pedido.nombre}<br>
+        <b>Total General: Bs. ${pedido.total.toFixed(2)}</b><br>
+        <b>Efectivo: Bs. ${pedido.efectivo.toFixed(2)}</b><br>
+        <b>Cambio: Bs. ${pedido.cambio.toFixed(2)}</b><br>
         <table style="width: 100%; margin-top: 10px;">
             <thead>
                 <tr>
@@ -126,12 +173,25 @@ function guardar_pedido(nombre, total, efectivo, cambio, tablaHTML) {
                     <th>Cantidad</th>
                 </tr>
             </thead>
-            <tbody>${tablaHTML}</tbody>
+            <tbody>${pedido.tablaHTML}</tbody>
         </table>
         <hr>
     `;
+
+    contenedor_pedido.appendChild(checkbox);
     pedidos_hechos.appendChild(contenedor_pedido);
 }
+
+window.onload = function () {
+    const historial = JSON.parse(localStorage.getItem("historialPedidos")) || [];
+    historial.forEach((pedido, index) => {
+        renderPedido(index, pedido);
+    });
+};
+
+
+
+
 
 function imprimir_reporte() {
     preparar_reporte();
