@@ -249,9 +249,9 @@ th, td {
 
    #logo_negro_reporte {
         display: flex;
-        width: 210px;
+        width: 180px;
         height: auto;
-        margin-right: 70px;
+        margin-right: 0px;
         margin-top: 30px;
     }
 
