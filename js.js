@@ -195,24 +195,9 @@ window.onload = function () {
 
 function imprimir_reporte() {
     preparar_reporte();
-
-    // Ocultar el "Total General" antes de imprimir
-    const totalGeneral = document.querySelector("#reporte h3");
-    if (totalGeneral) {
-        totalGeneral.style.display = "none";
-    }
-
-    // Ocultar columnas de precio y subtotal en la impresión
-    const columnasPrecioYSubtotal = document.querySelectorAll("#reporte table th:nth-child(3), #reporte table th:nth-child(4), #reporte table td:nth-child(3), #reporte table td:nth-child(4)");
-    columnasPrecioYSubtotal.forEach(columna => columna.style.display = "none");
-
+     
     window.print();
 
-    // Restaurar los elementos después de la impresión
-    if (totalGeneral) {
-        totalGeneral.style.display = "";
-    }
-    columnasPrecioYSubtotal.forEach(columna => columna.style.display = "");
 }
 
 function nombres_gente() {
