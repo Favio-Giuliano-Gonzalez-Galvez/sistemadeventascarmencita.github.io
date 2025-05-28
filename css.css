@@ -244,3 +244,19 @@ th, td {
         transform: translate(-61%);
     }
 }
+
+
+@media print {
+    /* Oculta el h3 dentro de #reporte (Total General) */
+    #reporte h3 {
+        display: none;
+    }
+
+    /* Oculta las columnas 3 y 4 (Precio y Subtotal) en la tabla */
+    #reporte table th:nth-child(3),
+    #reporte table th:nth-child(4),
+    #reporte table td:nth-child(3),
+    #reporte table td:nth-child(4) {
+        display: none;
+    }
+}
