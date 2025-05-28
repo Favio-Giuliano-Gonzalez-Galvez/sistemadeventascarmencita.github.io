@@ -40,13 +40,18 @@
 
 
     <div id="reporte" style="display:none;">
-        <h2 id="numero_ficha">0</h2>
-        <b><span>Nombre: </span></b><span id="nombre_persona_reporte"></span>
-        <table>
+        <div class="encabezado-reporte">
+            <div class="texto-reporte">
+                <h2 id="numero_ficha">0</h2>
+                <span id="nombre_persona_reporte"></span>
+            </div>
+            <img src="img/logo_negro.png" id="logo_negro_reporte">
+        </div>
+        <table id="tabla_html">
             <thead>
                 <tr>
-                    <th>Nombre</th>
-                    <th>Cantidad</th>
+                    <th id="tabla_html_producto">Producto</th>
+                    <th id="tabla_html_cantidad">Cantidad</th>
                     <th>Precio</th>
                     <th>Subtotal</th>
                 </tr>
