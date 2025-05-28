@@ -188,6 +188,11 @@ th, td {
 }
 
 
+#logo_negro_reporte{
+    display: none;
+}
+
+
 @media print {
     .no-imprimir {
         display: none; /* Ocultar botones y otros elementos al imprimir */
@@ -205,6 +210,57 @@ th, td {
         margin: 0;
         padding: 0;
     }
+
+
+    /* Oculta el h3 dentro de #reporte (Total General) */
+    #reporte h3 {
+        display: none;
+    }
+
+    /* Oculta las columnas 3 y 4 (Precio y Subtotal) en la tabla */
+    #reporte table th:nth-child(3),
+    #reporte table th:nth-child(4),
+    #reporte table td:nth-child(3),
+    #reporte table td:nth-child(4) {
+        display: none;
+    }
+
+    #numero_ficha{
+        font-size: 80px;
+        padding: 0px;
+        margin: 0px;
+    }
+
+    #nombre_persona_reporte{
+        font-size: 80px;
+    }
+
+    #tabla_html{
+        font-size: 80px;
+    }
+
+    #tabla_html_producto{
+        font-size: 30px;
+    }
+
+    #tabla_html_cantidad{
+        font-size: 30px;
+    }
+
+   #logo_negro_reporte {
+        display: flex;
+        width: 210px;
+        height: auto;
+        margin-right: 70px;
+        margin-top: 30px;
+    }
+
+    .encabezado-reporte {
+        display: flex;
+        justify-content: space-between; /* texto a la izquierda, imagen a la derecha */
+        align-items: flex-start;        /* alinea arriba o usa center si lo quieres centrado verticalmente */
+    }
+
 }
 
 
@@ -242,21 +298,5 @@ th, td {
         font-size: 20px;
         width: 230px;
         transform: translate(-61%);
-    }
-}
-
-
-@media print {
-    /* Oculta el h3 dentro de #reporte (Total General) */
-    #reporte h3 {
-        display: none;
-    }
-
-    /* Oculta las columnas 3 y 4 (Precio y Subtotal) en la tabla */
-    #reporte table th:nth-child(3),
-    #reporte table th:nth-child(4),
-    #reporte table td:nth-child(3),
-    #reporte table td:nth-child(4) {
-        display: none;
     }
 }
