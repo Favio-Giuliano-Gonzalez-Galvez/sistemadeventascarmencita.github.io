@@ -16,13 +16,59 @@ function agreg_productos() {
     });
 }
 
+
+
+
+
+
+
+function eliminar_producto(nombre_producto) {
+    const confirmacion = confirm(`¿Estás seguro de que deseas eliminar el producto "${nombre_producto}"?`);
+
+    if (!confirmacion) {
+        return; // Si el usuario presiona "Cancelar", no hace nada
+    }
+
+    // Eliminar del array
+    const index = productos.findIndex(p => p.nombre === nombre_producto);
+    if (index !== -1) {
+        productos.splice(index, 1);
+    }
+
+    // Actualizar el localStorage
+    guardar_en_localStorage();
+
+    // Eliminar visualmente del HTML
+    const lista = document.getElementById("lista_productos");
+    const hijos = Array.from(lista.children);
+    for (const hijo of hijos) {
+        if (hijo.textContent.includes(nombre_producto)) {
+            lista.removeChild(hijo);
+            break;
+        }
+    }
+
+    // Actualizar total
+    actualizar_total();
+}
+
+
+
 function creacion_producto(nombre, precio) {
     const contenedor_producto = document.createElement("div");
     contenedor_producto.style.marginBottom = "10px";
 
+    // Span del nombre (con función de eliminar al hacer clic)
     const producto_agregado_nombre = document.createElement("span");
     producto_agregado_nombre.textContent = `${nombre} `;
     producto_agregado_nombre.style.marginRight = "10px";
+    producto_agregado_nombre.style.cursor = "pointer";
+    producto_agregado_nombre.title = "Haz clic para eliminar este producto";
+
+    // Al hacer clic en el nombre, eliminar el producto
+    producto_agregado_nombre.addEventListener("click", function () {
+        eliminar_producto(nombre);
+    });
 
     const producto_agregado_precio = document.createElement("span");
     producto_agregado_precio.textContent = `Bs. ${precio} `;
@@ -36,15 +82,53 @@ function creacion_producto(nombre, precio) {
     const producto = { nombre, precio, cantidad: 0 };
     productos.push(producto);
 
+    guardar_en_localStorage();
+
     producto_agregado_input.addEventListener("input", function () {
         producto.cantidad = parseInt(producto_agregado_input.value) || 0;
         actualizar_total();
+        guardar_en_localStorage();
     });
 
     let division = document.createElement("hr");
-    contenedor_producto.append(producto_agregado_nombre, producto_agregado_precio, producto_agregado_input, division);
+
+    contenedor_producto.append(
+        producto_agregado_nombre,
+        producto_agregado_precio,
+        producto_agregado_input,
+        division
+    );
+
     document.getElementById("lista_productos").appendChild(contenedor_producto);
 }
+
+
+//guarda producto el localstorage
+// Guarda el array de productos en localStorage
+function guardar_en_localStorage() {
+    localStorage.setItem("productos", JSON.stringify(productos));
+}
+
+// Carga los productos desde localStorage
+function cargar_desde_localStorage() {
+    const datos = localStorage.getItem("productos");
+    if (datos) {
+        const productos_guardados = JSON.parse(datos);
+        productos_guardados.forEach(p => creacion_producto(p.nombre, p.precio));
+    }
+}
+
+window.addEventListener("DOMContentLoaded", function () {
+    cargar_desde_localStorage();
+});
+//fin carga productos el localstorage
+
+
+
+
+
+
+
 
 
 function actualizar_total() {
@@ -179,7 +263,7 @@ function renderPedido(index, pedido) {
     `;
 
     contenedor_pedido.appendChild(checkbox);
-    pedidos_hechos.appendChild(contenedor_pedido);
+    pedidos_hechos.insertBefore(contenedor_pedido, pedidos_hechos.firstChild);
 }
 
 window.onload = function () {
